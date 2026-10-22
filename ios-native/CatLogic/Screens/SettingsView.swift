@@ -4,8 +4,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(AppModel.self) private var app
     @Environment(Router.self) private var router
-    @State private var confirmDelete = false
-    @State private var deleted = false
+    @Environment(GameCenterAuth.self) private var gameCenter
 
     var body: some View {
         @Bindable var app = app
@@ -26,10 +25,18 @@ struct SettingsView: View {
                 Button("How to play") { router.showTutorial = true }
                 LabeledContent("Restore purchase", value: "Not set up yet")
                 LabeledContent("Privacy", value: "Progress stays on this device")
-                Button(deleted ? "Leaderboard data deleted" : "Delete my leaderboard data", role: .destructive) {
-                    confirmDelete = true
+            }
+            Section {
+                if gameCenter.isSignedIn {
+                    LabeledContent("Signed in as", value: gameCenter.playerName ?? "")
+                    Button("Open Game Center") { gameCenter.showDashboard() }
+                } else {
+                    LabeledContent("Not signed in", value: "")
                 }
-                .disabled(deleted)
+            } header: {
+                Text("Game Center")
+            } footer: {
+                Text("Daily times post to Game Center. Sign in or out, or hide your name, in the Settings app under Game Center.")
             }
             #if DEBUG
             Section("Developer") {
@@ -42,15 +49,5 @@ struct SettingsView: View {
         .scrollContentBackground(.hidden)
         .background(Tokens.Colors.bg)
         .navigationTitle("Settings")
-        .confirmationDialog("Delete your leaderboard data?", isPresented: $confirmDelete, titleVisibility: .visible) {
-            Button("Delete", role: .destructive) {
-                Task {
-                    try? await app.leaderboard.deleteMe()
-                    deleted = true
-                }
-            }
-        } message: {
-            Text("Your name and daily times are removed from the leaderboard. Progress on this device stays.")
-        }
     }
 }

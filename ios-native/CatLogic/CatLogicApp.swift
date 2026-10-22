@@ -3,14 +3,27 @@ import SwiftUI
 
 @main
 struct CatLogicApp: App {
-    @State private var app = AppModel.live()
+    @State private var app = AppModel.live(leaderboard: CatLogicApp.leaderboard())
     @State private var router = Router()
+    @State private var gameCenter = GameCenterAuth()
+
+    // Launch with -sampleLeaderboard (Xcode scheme > Arguments) to use sample
+    // players, e.g. before the App Store Connect leaderboard exists.
+    static func leaderboard() -> LeaderboardService {
+        ProcessInfo.processInfo.arguments.contains("-sampleLeaderboard") ? SampleLeaderboard() : GameCenterLeaderboard()
+    }
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(app)
                 .environment(router)
+                .environment(gameCenter)
+                .task {
+                    gameCenter.start {
+                        Task { await app.submitPendingDaily() }
+                    }
+                }
         }
     }
 }

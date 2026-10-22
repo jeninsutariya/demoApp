@@ -192,7 +192,10 @@ struct PuzzleView: View {
                 Text("Best \(Format.time(best))").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted).monospacedDigit()
             }
             if let rank = r?.rank, let total = r?.total {
-                Text("#\(rank) of \(total) today (sample leaderboard)").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
+                Text("#\(rank) of \(total) today").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
+            }
+            if let note = session.submitNote {
+                Text(note).textStyle(Tokens.TextScale.sm, Tokens.Colors.textMuted)
             }
             Spacer()
             if session.kind == .level {

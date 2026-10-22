@@ -16,6 +16,11 @@ targets:
       - path: CatLogic
     dependencies:
       - package: CatLogicKit
+      - sdk: GameKit.framework
+    entitlements:
+      path: CatLogic/CatLogic.entitlements
+      properties:
+        com.apple.developer.game-center: true
     info:
       path: CatLogic/Info.plist
       properties:

@@ -15,6 +15,7 @@
 		391E2AEED19F95D6E6DBA257 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FFE3F14869E4A38DFC51B1 /* Style.swift */; };
 		59F85F360BE44612BDD2A626 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0D2B690D821A5DDA7D6B3F75 /* OFL.txt */; };
 		5C80181D6B1CF73966F31770 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F1351C5CBDF32B8995E03 /* HomeView.swift */; };
+		6063C546D7102937CB0F08FD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46ECEFBBA3C1B6FCB6E1F495 /* GameKit.framework */; };
 		6957FC00CA35ED7D2FF714BD /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07559C4D6A0F4E33732BB6D3 /* DesignView.swift */; };
 		6E2B8DCA78E18BF128F5E228 /* PuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B820E8AD8ED173996CF349 /* PuzzleView.swift */; };
 		917EECBA71A06A7AA916937D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E6A5E0AEEE8604FA01FF3 /* SettingsView.swift */; };
@@ -23,6 +24,7 @@
 		A26284CE9DC1430B8894B587 /* Nunito_800ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F45D5ECB1C455957CAB589C2 /* Nunito_800ExtraBold.ttf */; };
 		A2F490FF47A4DDCC10EA786E /* CatLogicKit in Frameworks */ = {isa = PBXBuildFile; productRef = A4C307409EA9B2A50A0FF58B /* CatLogicKit */; };
 		BF414EC93BE56CE4CCB8E296 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198B2B216701E4F74E787BC3 /* BoardView.swift */; };
+		D7E777B62094DB933D799483 /* GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E566B9285C09314D2C35039 /* GameCenter.swift */; };
 		EF2D009A875D394488861694 /* Nunito_500Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA710CD27F97A9CD6AA595A4 /* Nunito_500Medium.ttf */; };
 		F9511001EDFEC2600B2503B3 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73575232DB92F7EE888943F7 /* HowToPlayView.swift */; };
 /* End PBXBuildFile section */
@@ -36,7 +38,9 @@
 		2C4F1351C5CBDF32B8995E03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2CC38FFBADF02C928251693F /* CatLogicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatLogicApp.swift; sourceTree = "<group>"; };
 		454B1596EAF2F246369C32F9 /* LevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsView.swift; sourceTree = "<group>"; };
+		46ECEFBBA3C1B6FCB6E1F495 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		69FFD73EC0D9F7DF46079B4E /* Nunito_700Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nunito_700Bold.ttf; sourceTree = "<group>"; };
+		6E566B9285C09314D2C35039 /* GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenter.swift; sourceTree = "<group>"; };
 		73575232DB92F7EE888943F7 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		872A196D64AA816094E849A0 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		A36E6A5E0AEEE8604FA01FF3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -47,6 +51,7 @@
 		D4695178166C66719D94C6B0 /* Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		E9B820E8AD8ED173996CF349 /* PuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleView.swift; sourceTree = "<group>"; };
 		F45D5ECB1C455957CAB589C2 /* Nunito_800ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nunito_800ExtraBold.ttf; sourceTree = "<group>"; };
+		F49ECD2A2484490F0243C84A /* CatLogic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CatLogic.entitlements; sourceTree = "<group>"; };
 		F4FFE3F14869E4A38DFC51B1 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2F490FF47A4DDCC10EA786E /* CatLogicKit in Frameworks */,
+				6063C546D7102937CB0F08FD /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +74,14 @@
 				14F15178EE261771EF31E8BF /* CatLogic.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1DE1E799F7D57EA2101964E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				46ECEFBBA3C1B6FCB6E1F495 /* GameKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		1F8DAB22C02AAD6E5F4AC9DD /* Components */ = {
@@ -83,11 +97,13 @@
 		4DB636CC72C8CA396D847EBA /* CatLogic */ = {
 			isa = PBXGroup;
 			children = (
+				F49ECD2A2484490F0243C84A /* CatLogic.entitlements */,
 				2CC38FFBADF02C928251693F /* CatLogicApp.swift */,
 				BDB1A49FCCD4ED590442208C /* Info.plist */,
 				1F8DAB22C02AAD6E5F4AC9DD /* Components */,
 				C89A27CA16A18DF1A92F07D1 /* Resources */,
 				5B1025C81072283FBF27D1AC /* Screens */,
+				7BAE6BE02ABF7C71F0E3964A /* Services */,
 				A1A0A3060CAC8F9256C3536F /* Theme */,
 			);
 			path = CatLogic;
@@ -116,6 +132,14 @@
 				A36E6A5E0AEEE8604FA01FF3 /* SettingsView.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		7BAE6BE02ABF7C71F0E3964A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6E566B9285C09314D2C35039 /* GameCenter.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		95F3ED0FFE2FE5AB3520773C /* Packages */ = {
@@ -148,6 +172,7 @@
 			children = (
 				4DB636CC72C8CA396D847EBA /* CatLogic */,
 				95F3ED0FFE2FE5AB3520773C /* Packages */,
+				1DE1E799F7D57EA2101964E8 /* Frameworks */,
 				0120E44C1FC3B290B69AE004 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -236,6 +261,7 @@
 				1123CEC831CB8E7B40473D32 /* CatIcon.swift in Sources */,
 				0EDC3CBE0D16A2BBB7C3A64F /* CatLogicApp.swift in Sources */,
 				6957FC00CA35ED7D2FF714BD /* DesignView.swift in Sources */,
+				D7E777B62094DB933D799483 /* GameCenter.swift in Sources */,
 				5C80181D6B1CF73966F31770 /* HomeView.swift in Sources */,
 				F9511001EDFEC2600B2503B3 /* HowToPlayView.swift in Sources */,
 				37CDCCA458CF514A94D1E53E /* LeaderboardView.swift in Sources */,
@@ -254,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CatLogic/CatLogic.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -394,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CatLogic/CatLogic.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

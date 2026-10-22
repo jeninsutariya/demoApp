@@ -45,9 +45,12 @@ struct HomeView: View {
                     }
                     Text("\(Format.date(m.today)) · \(m.dailySize)×\(m.dailySize)").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
                     if let d = m.daily, d.status == .solved {
-                        Label("Solved in \(Format.time(d.timeMs)). New one tomorrow.", systemImage: "checkmark")
-                            .textStyle(Tokens.TextScale.sm, Tokens.Colors.success)
-                            .padding(.top, Tokens.space[2])
+                        HStack(spacing: Tokens.space[1]) {
+                            Image(systemName: "checkmark")
+                            Text("Solved in \(Format.time(d.timeMs)). Next board in ") + Text(Daily.nextReset(), style: .relative)
+                        }
+                        .textStyle(Tokens.TextScale.sm, Tokens.Colors.success)
+                        .padding(.top, Tokens.space[2])
                     } else {
                         Text("Play today's board").textStyle(Tokens.TextScale.sm, Tokens.Colors.accent).fontWeight(.bold)
                             .padding(.top, Tokens.space[2])

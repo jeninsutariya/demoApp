@@ -4,6 +4,7 @@ import SwiftUI
 struct LeaderboardView: View {
     @Environment(AppModel.self) private var app
     @Environment(Router.self) private var router
+    @Environment(GameCenterAuth.self) private var gameCenter
     @State private var model: LeaderboardModel?
 
     var body: some View {
@@ -14,6 +15,13 @@ struct LeaderboardView: View {
         }
         .background(Tokens.Colors.bg)
         .navigationTitle("Today's fastest")
+        .toolbar {
+            if gameCenter.isSignedIn {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Game Center", systemImage: "gamecontroller") { gameCenter.showDashboard() }
+                }
+            }
+        }
         .task {
             let m = model ?? LeaderboardModel(app: app)
             model = m
@@ -23,7 +31,11 @@ struct LeaderboardView: View {
 
     private func content(_ m: LeaderboardModel) -> some View {
         VStack(alignment: .leading, spacing: Tokens.space[3]) {
-            Text("Daily puzzle · \(Format.date(m.date))").textStyle(Tokens.TextScale.sm, Tokens.Colors.textMuted)
+            HStack(spacing: 0) {
+                Text("Daily puzzle · \(Format.date(m.date)) · new board in ")
+                Text(Daily.nextReset(), style: .relative)
+            }
+            .textStyle(Tokens.TextScale.sm, Tokens.Colors.textMuted)
 
             if case .loaded(.ok(_, true)) = m.state {
                 Text("Sample leaderboard: the other names are placeholders until online play is switched on.")
@@ -45,6 +57,13 @@ struct LeaderboardView: View {
                     RoundedRectangle(cornerRadius: Tokens.Radius.sm).fill(Tokens.Colors.border).frame(height: 44)
                 }
                 .accessibilityLabel("Loading")
+            case .loaded(.signedOut):
+                VStack(alignment: .leading, spacing: Tokens.space[2]) {
+                    Text("Sign in to Game Center to see today's times and post yours.").textStyle(Tokens.TextScale.base)
+                    Text("Open the Settings app, tap Game Center, and sign in. Your solved time is kept until you do.")
+                        .textStyle(Tokens.TextScale.sm, Tokens.Colors.textMuted)
+                }
+                .card()
             case .loaded(.offline):
                 Text("You're offline. Your time is saved and will be sent when you're back online.")
                     .textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted).padding(.top, Tokens.space[6])

@@ -1,7 +1,7 @@
 # Cat Logic for iOS (SwiftUI)
 
-Native iOS 17+ version of the clone. Same rules, same daily puzzle and same
-300 levels as the Expo app in the repo root.
+Native iOS 17+ app. The daily leaderboard is Game Center; setup steps are in
+`replica/backend.md`.
 
 ```
 ios-native/
@@ -35,9 +35,11 @@ docker run --rm -v "$PWD":/pkg -w /pkg swift:6.1-noble swift test
 ```
 
 The tests check that the Swift engine makes exactly the same daily puzzles
-and levels as the TypeScript one (`engine/`), which the leaderboard server
-will use to check submitted times. If you change the generator, change both,
-bump `generatorVersion`, and re-pin the golden boards.
+and levels as the TypeScript reference (`engine/`). If you change the
+generator, change both, bump `generatorVersion`, and re-pin the golden boards.
+
+Without the App Store Connect leaderboard set up, run with the launch argument
+`-sampleLeaderboard` to see sample players.
 
 ## What's not done
 
