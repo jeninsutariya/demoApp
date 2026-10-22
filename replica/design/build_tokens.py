@@ -33,7 +33,9 @@ css.append("}")
 css.append("@media (prefers-reduced-motion: reduce) {")
 css.append("  :root { --motion-fast: 0ms; --motion-base: 0ms; --motion-place: 0ms; --motion-shake: 0ms; --motion-stagger: 0ms; }")
 css.append("}")
-open(os.path.join(HERE, "tokens.css"), "w").write("\n".join(css) + "\n")
+for out in (os.path.join(HERE, "tokens.css"), os.path.join(HERE, "..", "..", "site", "tokens.css")):
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    open(out, "w").write("\n".join(css) + "\n")
 
 theme = {
     "colors": {k: "var(--color-%s, %s)" % (k, v) for k, v in t["color"].items()},

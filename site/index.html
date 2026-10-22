@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Napspot: a daily cat logic puzzle with no ads</title>
+<meta name="description" content="Every cat needs its own spot. A calm daily logic puzzle for iPhone with 300 levels, a shared daily board and no ads, ever.">
+<meta property="og:title" content="Napspot: a daily cat logic puzzle with no ads">
+<meta property="og:description" content="Every cat needs its own spot. One board a day, the same for everyone. No ads, ever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root { --font-sans: Nunito, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); font-weight: 500; font: var(--text-base) var(--font-sans); }
+  a { color: var(--color-accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 var(--space-4); }
+  header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; }
+  .logo { font: 800 var(--text-lg) var(--font-sans); text-decoration: none; color: var(--color-text); }
+  .hero { display: grid; gap: var(--space-7); grid-template-columns: 1.1fr 1fr; align-items: center; padding: var(--space-7) 0 var(--space-8); }
+  h1 { font: 800 var(--text-display) var(--font-sans); margin: 0 0 var(--space-4); }
+  h2 { font: 800 var(--text-xl) var(--font-sans); margin: 0 0 var(--space-4); }
+  h3 { font: 700 var(--text-lg) var(--font-sans); margin: 0 0 var(--space-1); }
+  p { margin: 0 0 var(--space-3); }
+  .lead { font-size: 20px; line-height: 30px; color: var(--color-text-muted); }
+  .muted { color: var(--color-text-muted); }
+  .cta { display: inline-block; background: var(--color-accent); color: var(--color-on-accent); font-weight: 800; padding: 14px 28px; border-radius: var(--radius-pill); text-decoration: none; margin-top: var(--space-3); }
+  .cta[aria-disabled="true"] { cursor: default; }
+  .small { font: var(--text-sm) var(--font-sans); }
+  section { padding: var(--space-7) 0; border-top: 1px solid var(--color-border); }
+  .grid3 { display: grid; gap: var(--space-4); grid-template-columns: repeat(3, 1fr); }
+  .card { background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-card); }
+  .card.accent { outline: var(--border-focus) solid var(--color-accent); }
+  .step { font: 800 var(--text-xl) var(--font-sans); color: var(--color-accent); }
+  ul.features { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(2, 1fr); }
+  .price { font: 800 var(--text-xl) var(--font-sans); margin: var(--space-2) 0; }
+  details { background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-2); }
+  summary { font-weight: 700; cursor: pointer; }
+  details p { margin: var(--space-2) 0 0; color: var(--color-text-muted); }
+  footer { padding: var(--space-6) 0; border-top: 1px solid var(--color-border); color: var(--color-text-muted); }
+  /* board illustration */
+  .board { display: grid; width: min(100%, 420px); aspect-ratio: 1; margin: 0 auto; border: var(--border-region) solid var(--color-region-edge); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-pop); }
+  .board div { display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--color-grid-line); border-bottom: 1px solid var(--color-grid-line); }
+  .board svg { width: 70%; height: 70%; }
+  .board .x { color: var(--color-mark); font-weight: 800; font-size: 22px; }
+  @media (max-width: 760px) {
+    .hero, .grid3, ul.features { grid-template-columns: 1fr; }
+    .hero { padding-top: var(--space-5); gap: var(--space-6); }
+    h1 { font-size: 34px; line-height: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a class="logo" href="/">Napspot</a><span class="small muted">Coming soon to iPhone</span></header>
+
+  <div class="hero">
+    <div>
+      <h1>A daily cat logic puzzle. No ads, ever.</h1>
+      <p class="lead">Every cat needs its own spot: one per row, column and colour, and none touching. A new board every day, the same for everyone.</p>
+      <span class="cta" aria-disabled="true">Coming soon to iPhone</span>
+    </div>
+    <div class="board" id="board" role="img" aria-label="Illustration of a 6 by 6 Napspot board with two cats placed and some spots ruled out"></div>
+  </div>
+
+  <section>
+    <h2>Puzzles should be calm</h2>
+    <p class="lead">Too many puzzle apps break your concentration with an ad after nearly every level, then ask you to watch another one for a hint. Napspot has neither.</p>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <div class="grid3">
+      <div class="card"><div class="step">1</div><h3>Rule spots out</h3><p class="muted">Tap a spot once to mark where a cat can't go.</p></div>
+      <div class="card"><div class="step">2</div><h3>Place a cat</h3><p class="muted">Tap again, or double tap, to place a cat.</p></div>
+      <div class="card"><div class="step">3</div><h3>Give everyone space</h3><p class="muted">One per row, column and colour, none touching. Three slips and you start fresh.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What you get</h2>
+    <ul class="features">
+      <li class="card"><h3>No ads</h3><p class="muted">Not between levels, not for hints, not ever.</p></li>
+      <li class="card"><h3>Hints you earn</h3><p class="muted">Three to start, and one more for every daily board you finish.</p></li>
+      <li class="card"><h3>One board a day</h3><p class="muted">The same board for everyone, with today's fastest times on Game Center.</p></li>
+      <li class="card"><h3>300 levels</h3><p class="muted">From 5×5 to 10×10, each with exactly one answer you can reach by logic.</p></li>
+      <li class="card"><h3>Region shapes</h3><p class="muted">An optional shape in each colour, for players who can't tell the colours apart.</p></li>
+      <li class="card"><h3>Plays offline</h3><p class="muted">Your progress stays on your phone. Nothing to sign up for.</p></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Pricing</h2>
+    <div class="grid3">
+      <div class="card"><h3>Daily</h3><div class="price">Free</div><p class="muted">The daily board, levels 1 to 60, hints and the leaderboard. For good.</p></div>
+      <div class="card accent"><h3>Every level</h3><div class="price">$3.99 once</div><p class="muted">Levels 61 to 300, up to 10×10. No subscription. Family Sharing included.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Questions</h2>
+    <details><summary>Is it really free?</summary><p>The daily board and the first 60 levels are, for good. The other 240 levels are one payment.</p></details>
+    <details><summary>Do I need an account?</summary><p>No. Game Center is optional and only used for the leaderboard.</p></details>
+    <details><summary>When does the new board arrive?</summary><p>At midnight UTC, the same moment for everyone, so the leaderboard is fair.</p></details>
+    <details><summary>Android?</summary><p>Not yet. iPhone and iPad first.</p></details>
+    <details><summary>What data do you collect?</summary><p>None. Your progress stays on your phone. See the <a href="privacy.html">privacy policy</a>.</p></details>
+    <details><summary>Refunds?</summary><p>Through Apple, like any App Store purchase.</p></details>
+  </section>
+
+  <section>
+    <h2>Find today's spots</h2>
+    <span class="cta" aria-disabled="true">Coming soon to iPhone</span>
+  </section>
+
+  <footer class="small">Napspot · <a href="privacy.html">Privacy</a> · Support: <a href="mailto:support@example.com">support@example.com</a></footer>
+</div>
+<script>
+  // Board drawn from a real level (level 25 of the pack): regions, two placed cats, some marks
+  const [size, regions, solution] = "6|111100111122114142334142354444355444|425031|2".split("|");
+  const n = +size, reg = [...regions].map(Number), sol = [...solution].map(Number);
+  const cats = new Set([0, 2].map(r => r * n + sol[r]));
+  // X marks: the rest of the first cat's row, and the cells touching it
+  const c0 = sol[0], marks = new Set();
+  for (let c = 0; c < n; c++) if (c !== c0) marks.add(c);
+  [c0 - 1, c0, c0 + 1].forEach(c => { if (c >= 0 && c < n) marks.add(n + c); });
+  const cat = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--color-cat)" d="M5 3l3.5 4.2h7L19 3l1 8.2a8 8 0 1 1-16 0z"/><circle cx="9.5" cy="12.5" r="1.2" fill="var(--color-surface)"/><circle cx="14.5" cy="12.5" r="1.2" fill="var(--color-surface)"/></svg>';
+  const b = document.getElementById("board");
+  b.style.gridTemplateColumns = "repeat(" + n + ", 1fr)";
+  const edge = "var(--border-region) solid var(--color-region-edge)";
+  reg.forEach((g, i) => {
+    const d = document.createElement("div"), r = Math.floor(i / n), c = i % n;
+    d.style.background = "var(--color-region-" + (g + 1) + ")";
+    if (c < n - 1 && reg[i + 1] !== g) d.style.borderRight = edge;
+    if (r < n - 1 && reg[i + n] !== g) d.style.borderBottom = edge;
+    if (cats.has(i)) d.innerHTML = cat; else if (marks.has(i)) d.innerHTML = '<span class="x">✕</span>';
+    b.appendChild(d);
+  });
+</script>
+</body>
+</html>
