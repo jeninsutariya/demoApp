@@ -1,0 +1,27 @@
+feature,area,priority,original,clone,notes
+Board of N x N cells split into coloured regions,puzzle,must,yes,no,core rule; App Store listing + Android Central
+Place a cat (double-tap per listing),puzzle,must,yes,no,controls differ across sources; confirm on device
+Rule check: one cat per row column and region,puzzle,must,yes,no,
+Rule check: cats may not touch incl. diagonally,puzzle,must,yes,no,
+Mistake costs a life; 3 lives per puzzle,puzzle,must,yes,no,listing says hearts; fan sites say fish crackers
+Fail state when lives run out + retry,puzzle,must,yes,no,inferred
+Win state when every region has its cat,puzzle,must,yes,no,
+X marks for cells that cannot hold a cat,puzzle,must,yes,no,third-party analysis; confirm on device
+Remove a cat / clear a mark,puzzle,must,yes,no,
+Puzzle generator with exactly one solution,content,must,yes,no,needs a solver; original's puzzles are not copied
+Solve timer,puzzle,should,yes,no,implied by fastest-time leaderboards
+Undo and restart,puzzle,should,unknown,no,fan guide mentions; not confirmed for the official app
+Daily Puzzle (same board for everyone each day),modes,must,yes,no,App Store listing
+Level progression / campaign 5x5 to 10x10,modes,should,unknown,no,fan site claims 150 levels; unverified
+Difficulty by board size,modes,should,unknown,no,unverified
+Global leaderboard of fastest times,social,should,yes,no,listing; needs Game Center or own backend
+Works fully offline,platform,must,yes,no,Google Play listing
+Limited hints earned back via ads or rewards,monetization,could,yes,no,Android Central; a known complaint
+Interstitial ads after levels,monetization,could,yes,no,top complaint in Android Central review; candidate to drop
+Ad-free purchase,monetization,should,no,no,original lacks it on Android; obvious improvement
+Stats (solved count best times streak),progress,should,unknown,no,guess
+Settings (sound haptics),settings,should,unknown,no,guess
+Cat art and animations,design,must,yes,no,draw your own; never reuse the original's cats
+Android version,platform,could,yes,no,
+Original cat characters artwork and name,brand,skip,yes,skip,owned by Oakever Games; rebrand in /replica-brand
+Original's puzzle set and leaderboard data,content,skip,yes,skip,their content and their players
