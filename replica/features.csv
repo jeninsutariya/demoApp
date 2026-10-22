@@ -11,10 +11,10 @@ Remove a cat / clear a mark,puzzle,must,yes,yes,clone: tap cycle and long-press
 Puzzle generator with exactly one solution,content,must,yes,yes,needs a solver; original's puzzles are not copied; clone: engine/generator.ts; 10x10 median 36 ms
 Solve timer,puzzle,should,yes,yes,implied by fastest-time leaderboards; clone: pauses when backgrounded or a sheet is open
 Undo and restart,puzzle,should,unknown,yes,fan guide mentions; not confirmed for the official app
-Daily Puzzle (same board for everyone each day),modes,must,yes,yes,App Store listing; clone: seeded by local date; golden tests pin boards
+Daily Puzzle (same board for everyone each day),modes,must,yes,yes,App Store listing; clone: seeded by local date; golden tests pin boards; now keyed to the UTC date to match the Game Center reset
 Level progression / campaign 5x5 to 10x10,modes,should,unknown,yes,fan site claims 150 levels; unverified; clone: 300 generated levels in assets/levels.json
 Difficulty by board size,modes,should,unknown,yes,"unverified; clone: graded by technique needed, not just size"
-Global leaderboard of fastest times,social,should,yes,partial,listing; needs Game Center or own backend; clone: S08 runs on sample data; Supabase in /replica-backend; iOS: Game Center daily leaderboards are an option
+Global leaderboard of fastest times,social,should,yes,partial,"listing; needs Game Center or own backend; clone: S08 runs on sample data; Supabase in /replica-backend; iOS: Game Center daily leaderboards are an option; backend: Game Center daily leaderboard written, not yet run on a device or set up in App Store Connect"
 Works fully offline,platform,must,yes,yes,Google Play listing; clone: no network calls at all yet
 Limited hints earned back via ads or rewards,monetization,could,yes,partial,"Android Central; a known complaint; clone: 3 hints, +1 per daily solve, no ads; hint rings a cell but does not explain why"
 Interstitial ads after levels,monetization,could,yes,no,top complaint in Android Central review; candidate to drop; clone: left out on purpose until /replica-entrepreneur
@@ -22,6 +22,6 @@ Ad-free purchase,monetization,should,no,no,original lacks it on Android; obvious
 Stats (solved count best times streak),progress,should,unknown,partial,"guess; clone: solved count, best times, streak; no stats screen"
 Settings (sound haptics),settings,should,unknown,partial,guess; clone: sound toggle exists but there are no sounds yet
 Cat art and animations,design,must,yes,partial,draw your own; never reuse the original's cats; clone: placeholder cat icon; shake on mistake; no celebration animation
-Android version,platform,could,yes,partial,"clone: Expo builds it; not run on a device; native iOS app (ios-native/) is iOS only, Android stays with the Expo app"
+Android version,platform,could,yes,skip,"clone: Expo builds it; not run on a device; native iOS app (ios-native/) is iOS only, Android stays with the Expo app; dropped: iOS only (Expo app removed)"
 Original cat characters artwork and name,brand,skip,yes,skip,owned by Oakever Games; rebrand in /replica-brand
 Original's puzzle set and leaderboard data,content,skip,yes,skip,their content and their players

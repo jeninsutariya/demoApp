@@ -1,5 +1,9 @@
 # Build log
 
+> **2026-10-22:** the Expo app described in the first half of this log was
+> removed at the user's request (iOS only). Its notes stay for history; the
+> current app is in the "Native iOS" section.
+
 App: Expo SDK 58 (React Native 0.88), expo-router, TypeScript. Working name
 "Cat Logic" until `/replica-brand`. Parity after this build: 88.4, must-haves
 12 of 13 (cat art is a placeholder).
@@ -61,12 +65,12 @@ Screenshots for `/replica-diff`: `replica/clone-screens/` (390 wide, and
 ## Native iOS (SwiftUI), 2026-10-22
 
 Built on request as a native app in `ios-native/` (SwiftUI, iOS 17+). The
-Expo app stays in the repo root for now.
+Expo app was later removed. Backend (Game Center) notes: `replica/backend.md`.
 
 - **CatLogicKit** (Swift package): the engine, game rules, saving
   (`FileStore`, one JSON file in Application Support), the sample leaderboard
   and the screen models (`PuzzleSession`, `HomeModel`, `LeaderboardModel`).
-  22 tests pass on Linux (Swift 6.1.3 in Docker). They show the Swift engine
+  29 tests pass on Linux (22 at first, 7 more for the Game Center rules) (Swift 6.1.3 in Docker). They show the Swift engine
   matches the TypeScript bit for bit: the same random numbers, all 8 pinned
   daily boards, and 60 levels regenerated from their seeds. The slowest daily
   of a week generates in 8 ms (release build).
@@ -82,9 +86,9 @@ Expo app stays in the repo root for now.
 | S01 Home | written, not compiled | |
 | S02 Level select | written, not compiled | |
 | S03-S07, S09 Puzzle, mistakes, fail, win, daily, hints | written, not compiled | pinch-zoom for 10×10 on small phones; drag-to-mark; win animation |
-| S08 Leaderboard | written, not compiled | sample data until /replica-backend (Game Center is an option) |
+| S08 Leaderboard | written, not compiled | Game Center; needs the App Store Connect leaderboard |
 | S10 Interstitial ad | not built | on purpose |
-| S11 Settings | written, not compiled | sounds; restore purchase |
+| S11 Settings | written, not compiled | sounds; restore purchase (no StoreKit yet) |
 | S12 How to play | written, not compiled | |
 | Design page | written, not compiled | debug builds only, from Settings |
 

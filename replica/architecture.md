@@ -3,6 +3,11 @@
 Reads `replica/recon.md` and `replica/features.csv`. Working name until
 `/replica-brand`: "the app".
 
+**Update 2026-10-22 (backend):** the leaderboard is Game Center, the daily runs
+on the UTC date, and the Expo app is removed (iOS only). The Supabase schema,
+API and edge functions below are superseded and kept only as the plan for a
+server-verified leaderboard. Current state: `replica/backend.md`.
+
 **Update 2026-10-22:** the app is now built natively for iOS in SwiftUI
 (`ios-native/`, iOS 17+), as asked. The Expo app in the repo root still
 exists and shares the engine rules, levels and tokens; decide whether to keep
