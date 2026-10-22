@@ -1,0 +1,204 @@
+{
+  "_about": "Themes for a daily logic-puzzle game (the Meowdoku clone). Used with: python3 .claude/skills/replica-entrepreneur/reviews.py replica/reviews.csv --themes replica/themes-puzzle.json --out replica/feedback.md. Patterns are case-insensitive Python regexes.",
+  "request_patterns": [
+    "\\bi wish\\b",
+    "\\bplease add\\b",
+    "\\bwould be (nice|great|good|helpful)\\b",
+    "\\bwould love\\b",
+    "\\bneeds? (a|an|the|to|more)\\b",
+    "\\bno way to\\b",
+    "\\bthere'?s no (way|option)\\b",
+    "\\b(can'?t|cannot|unable to) (even )?(add|change|edit|set|choose|export|import|customi[sz]e|connect|undo|delete|turn off)\\b",
+    "\\b(missing|lacks|lacking)\\b",
+    "\\bdoesn'?t (have|support|let|allow)\\b",
+    "\\bif only\\b",
+    "\\bfeature request\\b",
+    "\\bwhy (can'?t|isn'?t|doesn'?t)\\b",
+    "\\bmore (levels|puzzles|modes)\\b",
+    "\\bdark mode\\b",
+    "\\b(add|bring back) (a |an )?\\w+ mode\\b"
+  ],
+  "themes": [
+    {
+      "id": "ads",
+      "label": "Ads",
+      "kind": "complaint",
+      "patterns": [
+        "\\bads?\\b",
+        "\\badvert",
+        "\\bcommercials?\\b",
+        "\\bevery (level|puzzle|game)\\b.*\\b(ad|video)",
+        "\\bwatch(ing)? (a |an )?(video|ad)",
+        "\\bunskippable\\b",
+        "\\bpop.?ups?\\b"
+      ]
+    },
+    {
+      "id": "no_ad_free",
+      "label": "No way to pay to remove ads",
+      "kind": "request",
+      "patterns": [
+        "\\b(remove|no|turn off) (the )?ads\\b",
+        "\\bad.?free\\b",
+        "\\bpay (to|for) (remove|no)\\b",
+        "\\bpremium version\\b",
+        "\\bwould (gladly |happily )?pay\\b"
+      ]
+    },
+    {
+      "id": "hints",
+      "label": "Hints (too few, ads for hints)",
+      "kind": "complaint",
+      "patterns": [
+        "\\bhints?\\b",
+        "\\bclues?\\b"
+      ]
+    },
+    {
+      "id": "lives",
+      "label": "Lives and mistakes",
+      "kind": "complaint",
+      "patterns": [
+        "\\blives\\b",
+        "\\bhearts?\\b",
+        "\\bthree (mistakes|chances|strikes)\\b",
+        "\\b3 (mistakes|chances|strikes|lives)\\b",
+        "\\bgame over\\b",
+        "\\bone (wrong|mistake)\\b"
+      ]
+    },
+    {
+      "id": "unfair",
+      "label": "Puzzles need guessing or seem wrong",
+      "kind": "complaint",
+      "patterns": [
+        "\\bguess(ing)?\\b",
+        "\\bluck\\b",
+        "\\b(unsolvable|impossible|not solvable)\\b",
+        "\\b(more than|multiple) (one )?solutions?\\b",
+        "\\bwrong answer\\b",
+        "\\bmarked (it )?wrong\\b",
+        "\\bunfair\\b"
+      ]
+    },
+    {
+      "id": "difficulty",
+      "label": "Too easy, too hard, or no difficulty choice",
+      "kind": "complaint",
+      "patterns": [
+        "\\btoo (easy|hard|difficult|simple)\\b",
+        "\\bdifficult(y|ies)\\b",
+        "\\bboring\\b",
+        "\\bchalleng",
+        "\\bbigger (grids?|boards?|puzzles?)\\b"
+      ]
+    },
+    {
+      "id": "content",
+      "label": "Runs out of puzzles, repetitive",
+      "kind": "complaint",
+      "patterns": [
+        "\\bran out\\b",
+        "\\brun out\\b",
+        "\\brepetitive\\b",
+        "\\bsame (puzzles?|levels?|boards?)\\b",
+        "\\bonly one (puzzle|daily)\\b",
+        "\\bfinished (all|every)\\b",
+        "\\bwaiting for (new|more)\\b"
+      ]
+    },
+    {
+      "id": "controls",
+      "label": "Controls, mis-taps, double tap",
+      "kind": "complaint",
+      "patterns": [
+        "\\bdouble.?tap",
+        "\\bmis.?taps?\\b",
+        "\\baccidental(ly)?\\b",
+        "\\bfat finger",
+        "\\bundo\\b",
+        "\\btoo small\\b",
+        "\\bcontrols?\\b",
+        "\\btap(ped|ping)? (the )?wrong\\b"
+      ]
+    },
+    {
+      "id": "bugs",
+      "label": "Bugs, crashes, lost progress",
+      "kind": "complaint",
+      "patterns": [
+        "\\bcrash",
+        "\\bfreez",
+        "\\bbug(gy|s)?\\b",
+        "\\bglitch",
+        "\\blost (my )?(progress|streak|data)\\b",
+        "\\bwon'?t (load|open|start)\\b",
+        "\\bstuck\\b",
+        "\\breset\\b"
+      ]
+    },
+    {
+      "id": "daily",
+      "label": "Daily puzzle and streaks",
+      "kind": "complaint",
+      "patterns": [
+        "\\bdaily\\b",
+        "\\bstreaks?\\b",
+        "\\bmidnight\\b",
+        "\\btime ?zone\\b"
+      ]
+    },
+    {
+      "id": "leaderboard",
+      "label": "Leaderboards and cheating",
+      "kind": "complaint",
+      "patterns": [
+        "\\bleader.?boards?\\b",
+        "\\bcheat",
+        "\\bfriends?\\b",
+        "\\brank(ing|ed)?\\b"
+      ]
+    },
+    {
+      "id": "price",
+      "label": "Price and in-app purchases",
+      "kind": "complaint",
+      "patterns": [
+        "\\bexpensive\\b",
+        "\\boverpriced\\b",
+        "\\bpric(e|ey|ing)\\b",
+        "\\bsubscription\\b",
+        "\\bin.?app purchases?\\b",
+        "\\bpaywall\\b",
+        "\\bcoins?\\b",
+        "\\bgems?\\b"
+      ]
+    },
+    {
+      "id": "visuals",
+      "label": "Colours, readability, accessibility",
+      "kind": "complaint",
+      "patterns": [
+        "\\bcolou?r.?blind",
+        "\\bcolou?rs? (are|look) (too )?(similar|alike|close)\\b",
+        "\\bhard to (see|read|tell)\\b",
+        "\\bdark mode\\b",
+        "\\bcontrast\\b"
+      ]
+    },
+    {
+      "id": "cute",
+      "label": "Cats, art and feel (often praise)",
+      "kind": "complaint",
+      "patterns": [
+        "\\bcute\\b",
+        "\\badorable\\b",
+        "\\bcats?\\b",
+        "\\bkitt(y|ies|en)\\b",
+        "\\bart\\b",
+        "\\bsounds?\\b",
+        "\\bmusic\\b"
+      ]
+    }
+  ]
+}
