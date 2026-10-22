@@ -2,8 +2,8 @@
 """Fetch an app's public App Store reviews from Apple's official customer
 reviews RSS feed and append them to replica/reviews.csv. Standard library only.
 
-    python3 scripts/fetch_app_store_reviews.py                 # Meowdoku!, us gb ca au
-    python3 scripts/fetch_app_store_reviews.py --app 6761760135 --countries us,gb --pages 10
+    python3 replica/tools/fetch_app_store_reviews.py                 # Meowdoku!, us gb ca au
+    python3 replica/tools/fetch_app_store_reviews.py --app 6761760135 --countries us,gb --pages 10
 
 Text is copied exactly: the review's title, a newline, then its body. Each
 row's url points at the app's reviews page for that country, with the review
@@ -65,7 +65,7 @@ def main():
     ap.add_argument("--app", default="6761760135")
     ap.add_argument("--countries", default="us,gb,ca,au")
     ap.add_argument("--pages", type=int, default=10, help="the feed serves at most 10 pages of 50")
-    ap.add_argument("--csv", default=os.path.join(os.path.dirname(__file__), "..", "replica", "reviews.csv"))
+    ap.add_argument("--csv", default=os.path.join(os.path.dirname(__file__), "..", "reviews.csv"))
     args = ap.parse_args()
 
     seen = set()
