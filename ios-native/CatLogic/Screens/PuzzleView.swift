@@ -14,6 +14,14 @@ struct PuzzleScreen: View {
         Group {
             if let session {
                 PuzzleView(session: session)
+            } else if case .level(let n) = route, !app.isPlayable(level: n), n <= LevelPack.count {
+                ContentUnavailableView {
+                    Label("Level \(n) is locked", systemImage: "lock.fill")
+                } description: {
+                    Text("The first \(LevelPack.freeLevels) levels are free. One payment opens the rest.")
+                } actions: {
+                    Button("See what's included") { router.showUnlock = true }.buttonStyle(.primary)
+                }
             } else if missing {
                 ContentUnavailableView {
                     Label("This board isn't here", systemImage: "questionmark.square.dashed")
@@ -27,11 +35,14 @@ struct PuzzleScreen: View {
             }
         }
         .background(Tokens.Colors.bg)
-        .onAppear {
-            guard session == nil, !missing else { return }
-            session = PuzzleSession(route: route, app: app)
-            missing = session == nil
-        }
+        .onAppear(perform: load)
+        .onChange(of: app.allLevelsUnlocked) { _, _ in load() }
+    }
+
+    private func load() {
+        guard session == nil else { return }
+        session = PuzzleSession(route: route, app: app)
+        missing = session == nil
     }
 }
 
@@ -199,7 +210,15 @@ struct PuzzleView: View {
             }
             Spacer()
             if session.kind == .level {
-                if let next = session.nextLevel {
+                if session.nextLevelIsLocked {
+                    Text("That's the last free level. Thanks for playing this far.")
+                        .textStyle(Tokens.TextScale.sm, Tokens.Colors.textMuted)
+                    Button("Unlock more levels") {
+                        sheet = nil
+                        router.showUnlock = true
+                    }
+                    .buttonStyle(.primary)
+                } else if let next = session.nextLevel {
                     Button("Level \(next)") {
                         sheet = nil
                         router.replaceTop(.puzzle(.level(next)))

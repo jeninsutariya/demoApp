@@ -35,11 +35,16 @@ struct LevelsView: View {
 
     private func tile(_ n: Int) -> some View {
         let size = LevelPack.all[n - 1].size
-        let locked = n > open
+        let paid = !app.isPlayable(level: n)
+        let locked = n > open || paid
         let rec = records[n]
-        return Button { router.push(.puzzle(.level(n))) } label: {
+        return Button {
+            if paid { router.showUnlock = true } else { router.push(.puzzle(.level(n))) }
+        } label: {
             VStack(spacing: 2) {
-                if locked {
+                if paid {
+                    Text("\(n)").textStyle(Tokens.TextScale.lg, Tokens.Colors.textMuted)
+                } else if locked {
                     Image(systemName: "lock.fill").foregroundStyle(Tokens.Colors.textMuted)
                 } else {
                     Text("\(n)").textStyle(Tokens.TextScale.lg)
@@ -61,8 +66,8 @@ struct LevelsView: View {
             )
         }
         .buttonStyle(PressScale())
-        .disabled(locked)
-        .accessibilityLabel(locked ? "Level \(n), locked"
+        .disabled(locked && !paid)
+        .accessibilityLabel(paid ? "Level \(n), part of the unlock" : locked ? "Level \(n), locked"
                                    : "Level \(n), \(size) by \(size)\(rec.map { ", solved in \(Format.time($0.bestMs))" } ?? "")")
     }
 }

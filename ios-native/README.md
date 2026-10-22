@@ -38,7 +38,8 @@ The tests check that the Swift engine makes exactly the same daily puzzles
 and levels as the TypeScript reference (`engine/`). If you change the
 generator, change both, bump `generatorVersion`, and re-pin the golden boards.
 
-Without the App Store Connect leaderboard set up, run with the launch argument
+The "All levels" purchase works in the Simulator through `Napspot.storekit`
+(set in the run scheme). Without the App Store Connect leaderboard set up, run with the launch argument
 `-sampleLeaderboard` to see sample players.
 
 ## What's not done

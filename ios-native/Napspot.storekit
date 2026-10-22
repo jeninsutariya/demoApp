@@ -1,0 +1,33 @@
+{
+  "identifier" : "6A1F2C3D-4E5F-4A6B-8C7D-9E0F1A2B3C4D",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "3.99",
+      "familyShareable" : true,
+      "internalID" : "6739000001",
+      "localizations" : [
+        {
+          "description" : "Opens all 300 levels, up to 10x10. One payment, no subscription.",
+          "displayName" : "All levels",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "napspot.levels.all",
+      "referenceName" : "All levels",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

@@ -57,5 +57,7 @@ schemes:
         CatLogic: all
     run:
       config: Debug
+      # Local StoreKit testing: the unlock works in the Simulator without App Store Connect
+      storeKitConfiguration: Napspot.storekit
     archive:
       config: Release

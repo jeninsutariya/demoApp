@@ -5,6 +5,7 @@ struct SettingsView: View {
     @Environment(AppModel.self) private var app
     @Environment(Router.self) private var router
     @Environment(GameCenterAuth.self) private var gameCenter
+    @Environment(Purchases.self) private var purchases
 
     var body: some View {
         @Bindable var app = app
@@ -23,7 +24,12 @@ struct SettingsView: View {
             }
             Section {
                 Button("How to play") { router.showTutorial = true }
-                LabeledContent("Restore purchase", value: "Not set up yet")
+                if app.allLevelsUnlocked {
+                    LabeledContent("All levels", value: "Unlocked")
+                } else {
+                    Button("Unlock all levels") { router.showUnlock = true }
+                }
+                Button("Restore purchase") { Task { await purchases.restore(app: app) } }
                 LabeledContent("Privacy", value: "Progress stays on this device")
             }
             Section {

@@ -28,6 +28,9 @@ public enum LevelPack {
 
     public static var count: Int { all.count }
 
+    // Free forever; the rest come with the one-time unlock (see Unlock).
+    public static let freeLevels = 60
+
     public static func level(_ n: Int) -> SolvedPuzzle? {
         n >= 1 && n <= all.count ? all[n - 1] : nil
     }

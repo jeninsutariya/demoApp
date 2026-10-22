@@ -60,14 +60,17 @@ struct HomeView: View {
             }
             .buttonStyle(PressScale())
 
-            Button { router.push(.puzzle(.level(m.next))) } label: {
+            Button {
+                if m.nextIsLocked { router.showUnlock = true } else { router.push(.puzzle(.level(m.next))) }
+            } label: {
                 VStack(alignment: .leading, spacing: Tokens.space[1]) {
                     HStack(spacing: Tokens.space[2]) {
                         Image(systemName: "square.grid.3x3").foregroundStyle(Tokens.Colors.accent)
                         Text("Levels").textStyle(Tokens.TextScale.lg)
                     }
                     Text("\(m.solved) of \(LevelPack.count) solved").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
-                    Text("\(m.solved > 0 ? "Carry on" : "Start"): level \(m.next) · \(m.nextSize)×\(m.nextSize)")
+                    Text(m.nextIsLocked ? "Unlock \(LevelPack.count - LevelPack.freeLevels) more levels"
+                                        : "\(m.solved > 0 ? "Carry on" : "Start"): level \(m.next) · \(m.nextSize)×\(m.nextSize)")
                         .textStyle(Tokens.TextScale.sm, Tokens.Colors.accent).fontWeight(.bold)
                         .padding(.top, Tokens.space[2])
                 }

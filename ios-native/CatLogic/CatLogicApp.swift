@@ -6,6 +6,7 @@ struct CatLogicApp: App {
     @State private var app = AppModel.live(leaderboard: CatLogicApp.leaderboard())
     @State private var router = Router()
     @State private var gameCenter = GameCenterAuth()
+    @State private var purchases = Purchases()
 
     // Launch with -sampleLeaderboard (Xcode scheme > Arguments) to use sample
     // players, e.g. before the App Store Connect leaderboard exists.
@@ -19,7 +20,9 @@ struct CatLogicApp: App {
                 .environment(app)
                 .environment(router)
                 .environment(gameCenter)
+                .environment(purchases)
                 .task {
+                    purchases.start(app: app)
                     gameCenter.start {
                         Task { await app.submitPendingDaily() }
                     }
@@ -37,6 +40,7 @@ enum Route: Hashable {
 final class Router {
     var path: [Route] = []
     var showTutorial = false
+    var showUnlock = false
 
     func push(_ r: Route) { path.append(r) }
 
@@ -68,6 +72,9 @@ struct RootView: View {
         .tint(Tokens.Colors.accent)
         .fullScreenCover(isPresented: $router.showTutorial) {
             HowToPlayView()
+        }
+        .sheet(isPresented: $router.showUnlock) {
+            UnlockView()
         }
     }
 }

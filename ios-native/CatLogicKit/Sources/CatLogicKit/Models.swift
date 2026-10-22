@@ -18,9 +18,21 @@ public final class AppModel {
         self.leaderboard = leaderboard
         self.now = now
         settings = store.settings
+        allLevelsUnlocked = store.flag(Unlock.flag)
     }
 
     public var today: String { Daily.todayKey(now()) }
+
+    public private(set) var allLevelsUnlocked = false
+
+    public func setAllLevelsUnlocked(_ on: Bool) {
+        allLevelsUnlocked = on
+        store.setFlag(Unlock.flag, on)
+    }
+
+    public func isPlayable(level n: Int) -> Bool {
+        n >= 1 && n <= LevelPack.count && (n <= LevelPack.freeLevels || allLevelsUnlocked)
+    }
 
     // A daily solved while offline or signed out is sent later, but only while
     // it's still that day: the leaderboard only takes times for the current day.
@@ -50,6 +62,13 @@ public final class AppModel {
         m.store.setFlag("seenTutorial", true)
         return m
     }
+}
+
+// The one-time purchase that opens every level. StoreKit is the source of
+// truth; the flag is a cache so locked levels stay open offline.
+public enum Unlock {
+    public static let productID = "napspot.levels.all"
+    static let flag = "unlock.allLevels"
 }
 
 public enum PuzzleRoute: Hashable, Sendable {
@@ -94,7 +113,7 @@ public final class PuzzleSession {
         self.app = app
         switch route {
         case .level(let n):
-            guard let p = LevelPack.level(n) else { return nil }
+            guard app.isPlayable(level: n), let p = LevelPack.level(n) else { return nil }
             kind = .level
             key = String(n)
             puzzle = p
@@ -233,6 +252,11 @@ public final class PuzzleSession {
         guard kind == .level, let n = Int(key), n < LevelPack.count else { return nil }
         return n + 1
     }
+
+    // The next level exists but needs the unlock
+    public var nextLevelIsLocked: Bool {
+        nextLevel.map { !app.isPlayable(level: $0) } ?? false
+    }
 }
 
 @MainActor @Observable
@@ -261,6 +285,7 @@ public final class HomeModel {
 
     public var dailySize: Int { (try? Daily.puzzle(for: today))?.size ?? 0 }
     public var nextSize: Int { LevelPack.level(next)?.size ?? minSize }
+    public var nextIsLocked: Bool { !app.isPlayable(level: next) }
 }
 
 @MainActor @Observable
