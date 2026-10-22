@@ -3,6 +3,13 @@
 Reads `replica/recon.md` and `replica/features.csv`. Working name until
 `/replica-brand`: "the app".
 
+**Update 2026-10-22:** the app is now built natively for iOS in SwiftUI
+(`ios-native/`, iOS 17+), as asked. The Expo app in the repo root still
+exists and shares the engine rules, levels and tokens; decide whether to keep
+it for Android and web. On iOS, Game Center's recurring (daily) leaderboards
+could replace the Supabase leaderboard below: weigh that in `/replica-backend`.
+Payments on iOS go through StoreKit 2 directly (RevenueCat optional).
+
 The original is an offline-first mobile puzzle game, so the default web/SaaS
 stack is adapted: the app does almost everything on the device, and the server
 exists only for the daily leaderboard.
