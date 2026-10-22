@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import levels from '../assets/levels.json';
+import levels from './levels.json';
 import {
   countSolutions, dailyPuzzle, decode, encode, generate, grade, isValidSolution,
   regionsConnected, rngFrom, solutionCells,
