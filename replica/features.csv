@@ -1,27 +1,27 @@
 feature,area,priority,original,clone,notes
-Board of N x N cells split into coloured regions,puzzle,must,yes,no,core rule; App Store listing + Android Central
-Place a cat (double-tap per listing),puzzle,must,yes,no,controls differ across sources; confirm on device
-Rule check: one cat per row column and region,puzzle,must,yes,no,
-Rule check: cats may not touch incl. diagonally,puzzle,must,yes,no,
-Mistake costs a life; 3 lives per puzzle,puzzle,must,yes,no,listing says hearts; fan sites say fish crackers
-Fail state when lives run out + retry,puzzle,must,yes,no,inferred
-Win state when every region has its cat,puzzle,must,yes,no,
-X marks for cells that cannot hold a cat,puzzle,must,yes,no,third-party analysis; confirm on device
-Remove a cat / clear a mark,puzzle,must,yes,no,
-Puzzle generator with exactly one solution,content,must,yes,no,needs a solver; original's puzzles are not copied
-Solve timer,puzzle,should,yes,no,implied by fastest-time leaderboards
-Undo and restart,puzzle,should,unknown,no,fan guide mentions; not confirmed for the official app
-Daily Puzzle (same board for everyone each day),modes,must,yes,no,App Store listing
-Level progression / campaign 5x5 to 10x10,modes,should,unknown,no,fan site claims 150 levels; unverified
-Difficulty by board size,modes,should,unknown,no,unverified
-Global leaderboard of fastest times,social,should,yes,no,listing; needs Game Center or own backend
-Works fully offline,platform,must,yes,no,Google Play listing
-Limited hints earned back via ads or rewards,monetization,could,yes,no,Android Central; a known complaint
-Interstitial ads after levels,monetization,could,yes,no,top complaint in Android Central review; candidate to drop
-Ad-free purchase,monetization,should,no,no,original lacks it on Android; obvious improvement
-Stats (solved count best times streak),progress,should,unknown,no,guess
-Settings (sound haptics),settings,should,unknown,no,guess
-Cat art and animations,design,must,yes,no,draw your own; never reuse the original's cats
-Android version,platform,could,yes,no,
+Board of N x N cells split into coloured regions,puzzle,must,yes,yes,core rule; App Store listing + Android Central; clone: Board.tsx; 5x5 to 10x10
+Place a cat (double-tap per listing),puzzle,must,yes,yes,controls differ across sources; confirm on device; clone: double tap places; tap cycles empty/X/cat
+Rule check: one cat per row column and region,puzzle,must,yes,yes,clone: engine/rules.ts + unique solution
+Rule check: cats may not touch incl. diagonally,puzzle,must,yes,yes,
+Mistake costs a life; 3 lives per puzzle,puzzle,must,yes,yes,listing says hearts; fan sites say fish crackers; clone: wrong cat costs a life and becomes an X
+Fail state when lives run out + retry,puzzle,must,yes,yes,inferred; clone: S05; daily retry keeps the clock running
+Win state when every region has its cat,puzzle,must,yes,yes,clone: S06
+X marks for cells that cannot hold a cat,puzzle,must,yes,yes,third-party analysis; confirm on device; clone: manual marks; no auto-marking (original unknown)
+Remove a cat / clear a mark,puzzle,must,yes,yes,clone: tap cycle and long-press
+Puzzle generator with exactly one solution,content,must,yes,yes,needs a solver; original's puzzles are not copied; clone: engine/generator.ts; 10x10 median 36 ms
+Solve timer,puzzle,should,yes,yes,implied by fastest-time leaderboards; clone: pauses when backgrounded or a sheet is open
+Undo and restart,puzzle,should,unknown,yes,fan guide mentions; not confirmed for the official app
+Daily Puzzle (same board for everyone each day),modes,must,yes,yes,App Store listing; clone: seeded by local date; golden tests pin boards
+Level progression / campaign 5x5 to 10x10,modes,should,unknown,yes,fan site claims 150 levels; unverified; clone: 300 generated levels in assets/levels.json
+Difficulty by board size,modes,should,unknown,yes,"unverified; clone: graded by technique needed, not just size"
+Global leaderboard of fastest times,social,should,yes,partial,listing; needs Game Center or own backend; clone: S08 runs on sample data; Supabase in /replica-backend
+Works fully offline,platform,must,yes,yes,Google Play listing; clone: no network calls at all yet
+Limited hints earned back via ads or rewards,monetization,could,yes,partial,"Android Central; a known complaint; clone: 3 hints, +1 per daily solve, no ads; hint rings a cell but does not explain why"
+Interstitial ads after levels,monetization,could,yes,no,top complaint in Android Central review; candidate to drop; clone: left out on purpose until /replica-entrepreneur
+Ad-free purchase,monetization,should,no,no,original lacks it on Android; obvious improvement; clone: waits on /replica-entrepreneur and RevenueCat
+Stats (solved count best times streak),progress,should,unknown,partial,"guess; clone: solved count, best times, streak; no stats screen"
+Settings (sound haptics),settings,should,unknown,partial,guess; clone: sound toggle exists but there are no sounds yet
+Cat art and animations,design,must,yes,partial,draw your own; never reuse the original's cats; clone: placeholder cat icon; shake on mistake; no celebration animation
+Android version,platform,could,yes,partial,clone: Expo builds it; not run on a device
 Original cat characters artwork and name,brand,skip,yes,skip,owned by Oakever Games; rebrand in /replica-brand
 Original's puzzle set and leaderboard data,content,skip,yes,skip,their content and their players
