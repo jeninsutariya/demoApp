@@ -1,7 +1,11 @@
 import Foundation
 
-// The daily puzzle is a pure function of the player's local date (mirrors
-// engine/daily.ts), so it works offline and a server can rebuild it.
+// The daily puzzle is a pure function of the date (mirrors engine/daily.ts),
+// so it works offline and anyone can rebuild it to check an answer.
+//
+// "Today" is the UTC date, not the player's local one: the Game Center daily
+// leaderboard resets at one moment worldwide (00:00 UTC), and everyone on it
+// must be solving the same board.
 public enum Daily {
     public static let seedPrefix = "daily-v\(Generator.generatorVersion)"
 
@@ -20,9 +24,24 @@ public enum Daily {
         key.range(of: #"^\d{4}-\d{2}-\d{2}$"#, options: .regularExpression) != nil
     }
 
-    public static func localDateKey(_ date: Date = Date(), calendar: Calendar = .current) -> String {
-        let c = calendar.dateComponents([.year, .month, .day], from: date)
+    public static func todayKey(_ date: Date = Date()) -> String {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = TimeZone(identifier: "UTC")!
+        let c = utc.dateComponents([.year, .month, .day], from: date)
         return String(format: "%04d-%02d-%02d", c.year!, c.month!, c.day!)
+    }
+
+    // When the current daily ends (next 00:00 UTC)
+    public static func nextReset(after date: Date = Date()) -> Date {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = TimeZone(identifier: "UTC")!
+        return utc.nextDate(after: date, matching: DateComponents(hour: 0, minute: 0, second: 0), matchingPolicy: .nextTime)!
+    }
+
+    // Faster than this is not a person solving it: at least 0.8 s per cat.
+    // Game Center can't check times on a server, so the app doesn't submit these.
+    public static func isPlausible(timeMs: Int, size: Int) -> Bool {
+        timeMs >= size * 800
     }
 
     // Gregorian weekday without Calendar, so every platform agrees (Sun = 0)

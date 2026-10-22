@@ -20,10 +20,29 @@ public final class AppModel {
         settings = store.settings
     }
 
-    public var today: String { Daily.localDateKey(now()) }
+    public var today: String { Daily.todayKey(now()) }
 
-    public static func live() -> AppModel {
-        AppModel(store: FileStore.standard(), leaderboard: SampleLeaderboard())
+    // A daily solved while offline or signed out is sent later, but only while
+    // it's still that day: the leaderboard only takes times for the current day.
+    @discardableResult
+    public func submitPendingDaily() async -> Bool {
+        let date = today
+        guard let rec = store.daily(date), rec.status == .solved, !rec.submitted,
+              let size = try? Daily.puzzle(for: date).size,
+              Daily.isPlausible(timeMs: rec.timeMs, size: size) else { return false }
+        do {
+            _ = try await leaderboard.submitDaily(date: date, timeMs: rec.timeMs, mistakes: rec.mistakes)
+            var sent = rec
+            sent.submitted = true
+            store.recordDaily(sent)
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    public static func live(leaderboard: LeaderboardService) -> AppModel {
+        AppModel(store: FileStore.standard(), leaderboard: leaderboard)
     }
 
     public static func preview() -> AppModel {
@@ -61,6 +80,8 @@ public final class PuzzleSession {
     public private(set) var result: Result?
     public private(set) var feedback = Feedback.none
     public private(set) var feedbackCount = 0 // changes on every event, for sensoryFeedback
+    public private(set) var submitNote: String? // why a daily time wasn't posted
+    public private(set) var submitTask: Task<Void, Never>?
 
     private let app: AppModel
     private var elapsedMs = 0
@@ -189,13 +210,21 @@ public final class PuzzleSession {
         }
         hints = app.store.addHints(1)
         result = Result(timeMs: ms)
-        let (date, cats, mistakes, store, board) = (key, puzzle.solutionCells, game.mistakes, app.store, app.leaderboard)
+        let (date, mistakes, store, board) = (key, game.mistakes, app.store, app.leaderboard)
         store.recordDaily(DailyRecord(date: date, status: .solved, timeMs: ms, mistakes: mistakes, submitted: false))
-        Task {
-            let sent = try? await board.submitDaily(date: date, cats: cats, timeMs: ms, mistakes: mistakes)
-            if let sent {
+        guard Daily.isPlausible(timeMs: ms, size: puzzle.size) else {
+            submitNote = "This time is too fast to post to the leaderboard."
+            return
+        }
+        submitTask = Task {
+            do {
+                let placed = try await board.submitDaily(date: date, timeMs: ms, mistakes: mistakes)
                 store.recordDaily(DailyRecord(date: date, status: .solved, timeMs: ms, mistakes: mistakes, submitted: true))
-                self.result = Result(timeMs: ms, rank: sent.rank, total: sent.total)
+                if let placed { self.result = Result(timeMs: ms, rank: placed.rank, total: placed.total) }
+            } catch SubmitError.signedOut {
+                self.submitNote = "Sign in to Game Center to post your time. It's saved until then."
+            } catch {
+                self.submitNote = "Your time is saved and will post when you're back online."
             }
         }
     }
@@ -254,6 +283,7 @@ public final class LeaderboardModel {
 
     public func load() async {
         state = .loading
+        await app.submitPendingDaily()
         mine = app.store.daily(date)
         let solved = mine?.status == .solved ? mine?.timeMs : nil
         state = .loaded(await app.leaderboard.daily(date: date, myTimeMs: solved))

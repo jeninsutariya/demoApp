@@ -8,16 +8,21 @@ public struct LeaderboardRow: Equatable, Sendable, Identifiable {
 
 public enum LeaderboardResult: Equatable, Sendable {
     case ok(rows: [LeaderboardRow], sample: Bool)
+    case signedOut // not signed in to Game Center
     case offline
     case error(String)
 }
 
-// The daily leaderboard. /replica-backend replaces the sample with the real
-// one (Game Center's daily leaderboards, or the Supabase plan).
+public enum SubmitError: Error, Equatable {
+    case signedOut, offline, failed(String)
+}
+
+// The daily leaderboard. The app uses Game Center (GameCenterLeaderboard in
+// the app target); tests and previews use the sample below.
 public protocol LeaderboardService: Sendable {
-    func submitDaily(date: String, cats: [Int], timeMs: Int, mistakes: Int) async throws -> (rank: Int, total: Int)?
+    // Throws SubmitError. Returns the rank when the board can say it yet.
+    func submitDaily(date: String, timeMs: Int, mistakes: Int) async throws -> (rank: Int, total: Int)?
     func daily(date: String, myTimeMs: Int?) async -> LeaderboardResult
-    func deleteMe() async throws
 }
 
 // SAMPLE until the backend exists. Other players are generated from the date
@@ -31,7 +36,7 @@ public struct SampleLeaderboard: LeaderboardService {
         return (0..<players).map { _ in Int((60_000 + rng.next() * rng.next() * 600_000).rounded()) }.sorted()
     }
 
-    public func submitDaily(date: String, cats: [Int], timeMs: Int, mistakes: Int) async throws -> (rank: Int, total: Int)? {
+    public func submitDaily(date: String, timeMs: Int, mistakes: Int) async throws -> (rank: Int, total: Int)? {
         let times = Self.times(date)
         return (times.filter { $0 < timeMs }.count + 1, times.count + 1)
     }
@@ -47,6 +52,4 @@ public struct SampleLeaderboard: LeaderboardService {
         }
         return .ok(rows: rows, sample: true)
     }
-
-    public func deleteMe() async throws {}
 }
