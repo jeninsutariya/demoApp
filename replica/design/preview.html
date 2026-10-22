@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design check</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { margin:0; background:var(--color-bg); color:var(--color-text); font-family:var(--font-sans); }
+  .phone { width:390px; padding:var(--space-4); box-sizing:border-box; }
+  .top { display:flex; align-items:center; justify-content:space-between; height:var(--layout-header); }
+  .title { font:var(--text-lg); font-weight:var(--text-lg-weight); }
+  .timer { font:var(--text-sm); font-weight:600; color:var(--color-text-muted); font-variant-numeric:tabular-nums; }
+  .lives svg { width:22px; height:22px; margin-left:4px; }
+  .board { display:grid; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-card);
+           border:var(--border-region) solid var(--color-region-edge); }
+  .cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; box-sizing:border-box;
+          border:var(--border-grid) solid var(--color-grid-line); position:relative; }
+  .cell svg { width:72%; height:72%; }
+  .cell.focus { outline:var(--border-focus) solid var(--color-accent); outline-offset:-4px; }
+  .cell.mistake { box-shadow:inset 0 0 0 2px var(--color-danger); }
+  .x { color:var(--color-mark); font-size:20px; font-weight:800; }
+  .tools { display:flex; gap:var(--space-2); justify-content:center; margin:var(--space-5) 0; }
+  .tool { width:48px; height:48px; border-radius:var(--radius-md); background:var(--color-surface); box-shadow:var(--shadow-card);
+          display:flex; align-items:center; justify-content:center; font-weight:800; position:relative; }
+  .badge { position:absolute; top:-4px; right:-4px; background:var(--color-accent); color:var(--color-on-accent);
+           border-radius:var(--radius-pill); font:var(--text-xs); font-weight:700; padding:0 6px; }
+  .tool[aria-disabled] { opacity:.4; }
+  .btn { display:block; width:100%; height:52px; border-radius:var(--radius-pill); border:0; font:var(--text-base); font-weight:700;
+         margin-top:var(--space-2); font-family:inherit; }
+  .primary { background:var(--color-accent); color:var(--color-on-accent); }
+  .secondary { background:var(--color-surface); color:var(--color-text); border:1px solid var(--color-border-input); }
+  .danger { background:var(--color-danger); color:var(--color-on-accent); }
+  h3 { font:var(--text-sm); font-weight:700; color:var(--color-text-muted); margin:var(--space-5) 0 var(--space-2); }
+  .swatches { display:grid; grid-template-columns:repeat(5,1fr); gap:var(--space-1); }
+  .sw { height:40px; border-radius:var(--radius-sm); border:2px solid var(--color-region-edge); }
+</style></head>
+<body><div class="phone">
+  <div class="top"><span class="title">Level 12</span><span class="timer">1:42</span>
+    <span class="lives" id="lives" aria-label="2 of 3 lives left"></span></div>
+  <div class="board" id="board" role="grid" aria-label="6 by 6 puzzle"></div>
+  <div class="tools"><div class="tool" aria-label="Undo">↶</div><div class="tool" aria-label="Restart">↻</div>
+    <div class="tool" aria-label="Hint, 2 left">?<span class="badge">2</span></div><div class="tool" aria-disabled="true">✕</div></div>
+  <button class="btn primary">Next puzzle</button><button class="btn secondary">Leaderboard</button><button class="btn danger">Delete account</button>
+  <h3>Regions</h3><div class="swatches" id="sw"></div>
+  <h3>Regions, pattern mode</h3><div class="swatches" id="swp"></div>
+</div>
+<script>
+const R=[[1,1,1,2,2,2],[1,1,2,2,2,2],[3,3,3,3,4,4],[5,3,3,3,4,4],[5,5,3,6,6,4],[5,5,6,6,6,6]];
+// state: 2 cat, 1 X, 3 mistake (cat), focus at row 3 col 3
+const S=[[0,2,0,1,1,1],[1,1,1,0,0,0],[0,0,0,0,0,2],[0,0,0,0,1,1],[0,0,0,0,0,0],[3,0,0,0,0,0]];
+const cat=c=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="${c}" d="M5 3l3.5 4.2h7L19 3l1 8.2a8 8 0 1 1-16 0z"/><circle cx="9.5" cy="12.5" r="1.2" fill="#fff"/><circle cx="14.5" cy="12.5" r="1.2" fill="#fff"/></svg>`;
+const heart=c=>`<svg viewBox="0 0 24 24"><path fill="${c}" d="M12 21s-7.5-4.6-9.5-9.2C1 8.4 3.2 5 6.6 5c2 0 3.4 1.1 4.4 2.5C12 6.1 13.4 5 15.4 5 18.8 5 21 8.4 19.5 11.8 17.5 16.4 12 21 12 21z"/></svg>`;
+document.getElementById('lives').innerHTML=heart('var(--color-danger)')+heart('var(--color-danger)')+heart('var(--color-border)');
+const b=document.getElementById('board'); b.style.gridTemplateColumns='repeat(6,1fr)';
+const E='var(--border-region) solid var(--color-region-edge)';
+R.forEach((row,r)=>row.forEach((g,c)=>{const d=document.createElement('div');d.className='cell';d.setAttribute('role','gridcell');
+  d.style.background=`var(--color-region-${g})`;
+  if(c<5&&R[r][c+1]!==g)d.style.borderRight=E; if(r<5&&R[r+1][c]!==g)d.style.borderBottom=E;
+  const s=S[r][c]; if(s===1)d.innerHTML='<span class="x">✕</span>'; if(s===2)d.innerHTML=cat('var(--color-cat)');
+  if(s===3){d.innerHTML=cat('var(--color-danger)');d.classList.add('mistake');} if(r===3&&c===3)d.classList.add('focus'); b.appendChild(d);}));
+const pats=['radial-gradient(#0003 1.5px,transparent 2px) 0 0/8px 8px','repeating-linear-gradient(45deg,#0002 0 2px,transparent 2px 8px)',
+ 'repeating-linear-gradient(0deg,#0002 0 2px,transparent 2px 8px)','repeating-linear-gradient(90deg,#0002 0 2px,transparent 2px 8px)',
+ 'conic-gradient(#0002 25%,transparent 0 50%,#0002 0 75%,transparent 0) 0 0/10px 10px','repeating-linear-gradient(-45deg,#0002 0 2px,transparent 2px 8px)',
+ 'radial-gradient(circle,transparent 3px,#0002 3.5px,transparent 4.5px) 0 0/10px 10px','repeating-linear-gradient(45deg,#0002 0 1px,transparent 1px 5px),repeating-linear-gradient(-45deg,#0002 0 1px,transparent 1px 5px)',
+ 'linear-gradient(#0000 45%,#0002 45% 55%,#0000 55%) 0 0/100% 10px','radial-gradient(#0003 3px,transparent 3.5px) 0 0/14px 14px'];
+for(let i=1;i<=10;i++){document.getElementById('sw').innerHTML+=`<div class="sw" style="background:var(--color-region-${i})" title="region-${i}"></div>`;
+ document.getElementById('swp').innerHTML+=`<div class="sw" style="background:${pats[i-1]},var(--color-region-${i})"></div>`;}
+</script></body></html>
