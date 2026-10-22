@@ -100,4 +100,5 @@ Expo app was later removed. Backend (Game Center) notes: `replica/backend.md`.
 - **No screenshots** in `replica/clone-screens/` for iOS: that needs the
   Simulator. Take them at iPhone 15 size once it builds.
 - **No app icon** yet: the brief is in `replica/brand.md`.
+- **Unlock** (`/replica-launch`): StoreKit 2 purchase `napspot.levels.all` opens levels 61 to 300 (`Purchases`, `UnlockView`). The locking rules are tested in the kit (32 tests); the StoreKit calls are not compiled. Local testing via `Napspot.storekit` in the run scheme.
 - Renamed to Napspot (display name, strings, accent) in `/replica-brand`. Bundle id `com.example.napspot`; the signing team is empty.

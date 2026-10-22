@@ -25,3 +25,4 @@ Cat art and animations,design,must,yes,partial,"draw your own; never reuse the o
 Android version,platform,could,yes,skip,dropped: iOS only by decision (Expo app removed)
 Original cat characters artwork and name,brand,skip,yes,skip,owned by Oakever Games; rebrand in /replica-brand
 Original's puzzle set and leaderboard data,content,skip,yes,skip,their content and their players
+One-time unlock for levels 61-300 instead of ads,monetization,should,no,partial,"ours, from the no-ads angle; StoreKit 2 written and logic tested, not compiled; product napspot.levels.all"

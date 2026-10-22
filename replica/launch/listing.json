@@ -1,0 +1,15 @@
+{
+  "avoid": [
+    "Meowdoku",
+    "Oakever",
+    "City Park Games"
+  ],
+  "app_store": {
+    "name": "Napspot: Daily Cat Logic",
+    "subtitle": "One cat per spot. No ads.",
+    "promotional_text": "A new board every day at midnight UTC, the same for everyone. Finish it, post your time to Game Center, and earn a hint for tomorrow.",
+    "description": "Napspot is a calm logic puzzle with no ads. Not between levels, not for hints, not ever.\n\nEvery cat needs its own spot. Place one cat in every row, every column and every colour, and keep them apart: no two cats can touch, not even corner to corner. Tap a spot once to rule it out, tap again (or double tap) to place a cat. Three slips and you start fresh.\n\nEvery board has exactly one answer, and you can always reach it by logic. No guessing.\n\nWHAT YOU GET\n- A daily board, the same for everyone, with today's fastest times on Game Center\n- 300 levels from 5x5 to 10x10, getting harder as you go\n- Hints you earn by playing: three to start, one more for every daily board you finish\n- Undo and restart whenever you like\n- Region shapes for players who can't tell the colours apart\n- Works offline, with nothing to sign up for\n\nPRICE\nThe daily board and the first 60 levels are free. One in-app purchase opens all 300 levels. No subscription, and Family Sharing is included.\n\nPRIVACY\nNapspot collects nothing. Your progress stays on your phone.",
+    "keywords": "puzzle,brain,deduction,grid,star battle,kitten,kitty,relaxing,offline,leaderboard,mind,game",
+    "whats_new": "Napspot's first release. A new board arrives every day at midnight UTC."
+  }
+}

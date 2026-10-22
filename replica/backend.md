@@ -16,7 +16,7 @@ leaderboard. What each part became:
 | Auth | Game Center sign-in (Apple's sheet, at launch, skippable) | the only thing needing an identity is the leaderboard |
 | Database | none on a server; progress in one JSON file on the device (`FileStore`) | nothing is shared except leaderboard times |
 | Leaderboard | Game Center recurring leaderboard, resets daily 00:00 UTC | free, no server to run, friends and history come with it |
-| Payments | none yet | nothing to sell until `/replica-entrepreneur`; iOS digital goods must use StoreKit 2, never Stripe |
+| Payments | StoreKit 2: one non-consumable, `napspot.levels.all`, unlocks levels 61 to 300 (added in `/replica-launch`) | iOS digital goods must use StoreKit, never Stripe; see `launch/pricing.md` |
 | Email, jobs | none | the daily is computed from the date; nothing to send |
 | Account deletion | not needed | the app creates no accounts; Game Center accounts are Apple's |
 | Backups | n/a | no server; the progress file is in Application Support, which device and iCloud backups include |
