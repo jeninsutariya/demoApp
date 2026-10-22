@@ -1,5 +1,5 @@
 /// <reference types="node" />
-// Builds assets/levels.json: 300 levels from 5x5 to 10x10, getting harder.
+// Builds assets/levels.json (and the iOS copy): 300 levels from 5x5 to 10x10, getting harder.
 // Levels are fixed once shipped (best times depend on them), so this only
 // runs when you mean to change the level pack.
 //   npx tsx scripts/gen-levels.ts
@@ -22,5 +22,8 @@ for (const band of BANDS) {
     levels.push(encode(generateWithDifficulty(`level-v1:${levels.length + 1}`, band.size, min, max)));
   }
 }
-writeFileSync(new URL('../assets/levels.json', import.meta.url), JSON.stringify(levels) + '\n');
+// The native iOS app ships the same pack inside CatLogicKit
+for (const out of ['../assets/levels.json', '../ios-native/CatLogicKit/Sources/CatLogicKit/Resources/levels.json']) {
+  writeFileSync(new URL(out, import.meta.url), JSON.stringify(levels) + '\n');
+}
 console.log(`wrote ${levels.length} levels`);

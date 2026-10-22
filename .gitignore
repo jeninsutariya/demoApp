@@ -40,3 +40,9 @@ yarn-error.*
 /ios
 /android
 replica/clone-screens/*.tmp
+
+# Swift / Xcode
+.build/
+.swiftpm/
+xcuserdata/
+DerivedData/
