@@ -61,13 +61,13 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
   const [doneBefore, setDoneBefore] = useState<DailyRecord | null>(null);
   const [hints, setHints] = useState(0);
   const [hintAsk, setHintAsk] = useState(false);
-  const [result, setResult] = useState<{ best?: number; rank?: number; total?: number } | null>(null);
+  const [result, setResult] = useState<{ timeMs: number; best?: number; rank?: number; total?: number } | null>(null);
 
   // Timer: counts only while the puzzle is on screen, the app is active and no
   // sheet is open.
   const elapsed = useRef(0);
   const since = useRef<number | null>(null);
-  const [, tick] = useState(0);
+  const [shownMs, setShownMs] = useState(0); // what the timer shows; refs hold the truth
   const [focused, setFocused] = useState(true);
   const [active, setActive] = useState(AppState.currentState === 'active');
   const running = loaded && !doneBefore && game.status === 'playing' && focused && active && !hintAsk;
@@ -90,7 +90,7 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
       return;
     }
     since.current = Date.now();
-    const id = setInterval(() => tick((n) => n + 1), 1000);
+    const id = setInterval(() => setShownMs(now()), 1000);
     return () => {
       clearInterval(id);
       if (since.current) elapsed.current += Date.now() - since.current;
@@ -114,6 +114,7 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
         setGame({ ...newGame(puzzle), cells: puzzle.regions.map((_, i) => (solutionCells(puzzle.size, puzzle.solution).includes(i) ? 2 : 0)), status: 'solved' });
       } else if (saved && saved.cells.length === puzzle.size * puzzle.size) {
         elapsed.current = saved.elapsedMs;
+        setShownMs(saved.elapsedMs);
         setGame({ ...newGame(puzzle), cells: saved.cells, history: saved.history, lives: saved.lives, mistakes: saved.mistakes });
       }
       setLoaded(true);
@@ -134,16 +135,17 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
       feedback.solved(settings.haptics);
       const ms = now();
       (async () => {
+        setShownMs(ms);
         await repo.clearAttempt(kind, puzzleKey);
         if (kind === 'level') {
           const rec = await repo.recordLevelSolve(Number(puzzleKey), ms);
-          setResult({ best: rec.bestMs });
+          setResult({ timeMs: ms, best: rec.bestMs });
         } else {
           const cats = solutionCells(puzzle.size, puzzle.solution);
           const sent = await leaderboard.submitDaily({ date: puzzleKey, cats, timeMs: ms, mistakes: game.mistakes }).catch(() => null);
           await repo.recordDaily({ date: puzzleKey, status: 'solved', timeMs: ms, mistakes: game.mistakes, submitted: !!sent });
           setHints(await repo.addHints(1));
-          setResult({ rank: sent?.rank, total: sent?.total });
+          setResult({ timeMs: ms, rank: sent?.rank, total: sent?.total });
         }
       })();
     }
@@ -164,6 +166,7 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
     if (kind === 'level') {
       elapsed.current = 0;
       if (since.current) since.current = Date.now();
+      setShownMs(0);
     }
     act({ type: 'restart' });
   };
@@ -184,8 +187,8 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
         right={
           <>
             {settings.hideTimer ? null : (
-              <Text variant="sm" color="text-muted" tabular accessibilityLabel={`Time ${formatTime(now())}`}>
-                {formatTime(doneBefore ? doneBefore.timeMs : now())}
+              <Text variant="sm" color="text-muted" tabular accessibilityLabel={`Time ${formatTime(doneBefore ? doneBefore.timeMs : shownMs)}`}>
+                {formatTime(doneBefore ? doneBefore.timeMs : shownMs)}
               </Text>
             )}
             <LivesBar lives={game.lives} />
@@ -250,7 +253,7 @@ function Puzzle({ kind, puzzleKey, puzzle, title }: { kind: PuzzleKind; puzzleKe
       <Sheet visible={!doneBefore && game.status === 'solved' && result !== null} label="Solved">
         <Text variant="xl">Every cat has a home</Text>
         <Text tabular>
-          Time {formatTime(now())} · {game.mistakes === 0 ? 'no mistakes' : `${game.mistakes} mistake${game.mistakes > 1 ? 's' : ''}`}
+          Time {formatTime(result?.timeMs ?? shownMs)} · {game.mistakes === 0 ? 'no mistakes' : `${game.mistakes} mistake${game.mistakes > 1 ? 's' : ''}`}
         </Text>
         {result?.best != null ? <Text color="text-muted" tabular>Best {formatTime(result.best)}</Text> : null}
         {result?.rank != null ? <Text color="text-muted">#{result.rank} of {result.total} today (sample leaderboard)</Text> : null}

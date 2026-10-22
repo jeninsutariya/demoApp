@@ -51,7 +51,7 @@ export default function Leaderboard() {
 
       {mine?.status !== 'solved' ? (
         <View style={styles.banner}>
-          <Text variant="sm">Solve today's puzzle to get on the board.</Text>
+          <Text variant="sm">Solve today’s puzzle to get on the board.</Text>
           <Button size="md" label="Play the daily" onPress={() => router.push(`/play/daily/${today}`)} />
         </View>
       ) : null}
@@ -60,11 +60,11 @@ export default function Leaderboard() {
         Array.from({ length: 8 }, (_, i) => <View key={i} style={styles.skeleton} />)
       ) : board.state === 'offline' ? (
         <Text color="text-muted" center style={styles.note}>
-          You're offline. Your time is saved and will be sent when you're back online.
+          You’re offline. Your time is saved and will be sent when you’re back online.
         </Text>
       ) : board.state === 'error' ? (
         <View style={styles.note}>
-          <Text color="danger" center>The leaderboard didn't load.</Text>
+          <Text color="danger" center>The leaderboard didn’t load.</Text>
           <Button label="Try again" variant="secondary" onPress={load} />
         </View>
       ) : board.rows.length === 0 ? (

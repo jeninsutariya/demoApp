@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Animated, Pressable, StyleSheet, Text as RNText, View, useWindowDimensions } from 'react-native';
 import type { Puzzle } from '../../engine';
 import { CAT, MARK, type CellState } from '../game/game';
@@ -42,7 +42,7 @@ export function Board({
   const width = Math.min(window.width - 2 * tokens.layout.gutter, maxWidth ?? tokens.layout['board-max']);
   const cell = Math.floor((width - 2 * edge) / size);
 
-  const shake = useRef(new Animated.Value(0)).current;
+  const [shake] = useState(() => new Animated.Value(0));
   useEffect(() => {
     if (lastMistake == null) return;
     shake.setValue(0);

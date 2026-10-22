@@ -62,7 +62,7 @@ export default function Home() {
               <Text variant="sm" color="success">Solved in {formatTime(data.daily.timeMs)}. New one tomorrow.</Text>
             </View>
           ) : (
-            <Text variant="sm" color="accent" style={styles.cta}>Play today's board</Text>
+            <Text variant="sm" color="accent" style={styles.cta}>Play today’s board</Text>
           )}
         </Card>
 
