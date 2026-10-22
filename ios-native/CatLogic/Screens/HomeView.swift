@@ -26,9 +26,9 @@ struct HomeView: View {
     private func content(_ m: HomeModel) -> some View {
         VStack(alignment: .leading, spacing: Tokens.space[4]) {
             VStack(alignment: .leading, spacing: Tokens.space[1]) {
-                Text("Cat Logic").textStyle(Tokens.TextScale.display, relativeTo: .largeTitle)
+                Text("Napspot").textStyle(Tokens.TextScale.display, relativeTo: .largeTitle)
                     .accessibilityAddTraits(.isHeader)
-                Text("One cat per row, column and colour.").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
+                Text("Every cat needs its own spot.").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
             }
             .padding(.top, Tokens.space[7])
             .padding(.bottom, Tokens.space[2])
@@ -52,7 +52,7 @@ struct HomeView: View {
                         .textStyle(Tokens.TextScale.sm, Tokens.Colors.success)
                         .padding(.top, Tokens.space[2])
                     } else {
-                        Text("Play today's board").textStyle(Tokens.TextScale.sm, Tokens.Colors.accent).fontWeight(.bold)
+                        Text("Today's board is ready").textStyle(Tokens.TextScale.sm, Tokens.Colors.accent).fontWeight(.bold)
                             .padding(.top, Tokens.space[2])
                     }
                 }
@@ -67,7 +67,7 @@ struct HomeView: View {
                         Text("Levels").textStyle(Tokens.TextScale.lg)
                     }
                     Text("\(m.solved) of \(LevelPack.count) solved").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
-                    Text("\(m.solved > 0 ? "Continue" : "Start"): level \(m.next) · \(m.nextSize)×\(m.nextSize)")
+                    Text("\(m.solved > 0 ? "Carry on" : "Start"): level \(m.next) · \(m.nextSize)×\(m.nextSize)")
                         .textStyle(Tokens.TextScale.sm, Tokens.Colors.accent).fontWeight(.bold)
                         .padding(.top, Tokens.space[2])
                 }

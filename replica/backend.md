@@ -1,4 +1,4 @@
-# Backend: Cat Logic (iOS)
+# Backend: Napspot (iOS)
 
 Date: 2026-10-22. Decisions taken with the user:
 
@@ -48,7 +48,7 @@ leaderboard. What each part became:
 ## What you need to do (Claude can't: it's your Apple account)
 
 1. **Apple Developer Program** membership. In Xcode, set your team and change
-   the bundle id `com.example.catlogic` to yours. The Game Center capability
+   the bundle id `com.example.napspot` to yours. The Game Center capability
    is already in `CatLogic.entitlements`.
 2. **App Store Connect** > your app > Features > **Game Center** >
    Leaderboards > **+** > **Recurring Leaderboard**:
@@ -56,7 +56,7 @@ leaderboard. What each part became:
    | field | value |
    | --- | --- |
    | Reference name | Daily fastest |
-   | Leaderboard ID | `catlogic.daily.fastest` (must match `GameCenter.dailyLeaderboardID`) |
+   | Leaderboard ID | `napspot.daily.fastest` (must match `GameCenter.dailyLeaderboardID`) |
    | Score format | Elapsed Time: To the Hundredth of a Second |
    | Sort order | Low to High |
    | Score range (optional) | min 480 (4.8 s, the fastest plausible 6×6), max 8640000 (24 h) |

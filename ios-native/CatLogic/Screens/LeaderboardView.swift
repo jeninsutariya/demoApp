@@ -44,7 +44,7 @@ struct LeaderboardView: View {
             }
             if m.mine?.status != .solved {
                 VStack(alignment: .leading, spacing: Tokens.space[1]) {
-                    Text("Solve today's puzzle to get on the board.").textStyle(Tokens.TextScale.sm)
+                    Text("Finish today's board to see your name here.").textStyle(Tokens.TextScale.sm)
                     Button("Play the daily") { router.push(.puzzle(.daily(m.date))) }
                         .buttonStyle(TokenButtonStyle(variant: .primary, height: Tokens.Layout.cellMinTouch))
                 }
@@ -74,7 +74,7 @@ struct LeaderboardView: View {
                 }
                 .padding(.top, Tokens.space[6])
             case .loaded(.ok(let rows, _)) where rows.isEmpty:
-                Text("No times yet today. Be the first.").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
+                Text("Nobody has finished today's board yet. You could be first.").textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
                     .padding(.top, Tokens.space[6])
             case .loaded(.ok):
                 LazyVStack(spacing: 0) {

@@ -1,4 +1,4 @@
-# Cat Logic
+# Napspot
 
 A daily cat logic puzzle for iOS: one cat per row, column and colour, and no
 two cats touching.

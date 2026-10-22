@@ -16,7 +16,7 @@ struct PuzzleScreen: View {
                 PuzzleView(session: session)
             } else if missing {
                 ContentUnavailableView {
-                    Label("No puzzle here", systemImage: "questionmark.square.dashed")
+                    Label("This board isn't here", systemImage: "questionmark.square.dashed")
                 } description: {
                     Text("That puzzle doesn't exist, or it's a daily from another day. Today's is on the home screen.")
                 } actions: {
@@ -77,7 +77,7 @@ struct PuzzleView: View {
 
                     if let done = session.solvedBefore {
                         VStack(spacing: Tokens.space[2]) {
-                            Text("Solved today in \(Format.time(done.timeMs)). A new board arrives tomorrow.")
+                            Text("Done for today in \(Format.time(done.timeMs)). The next board appears at midnight UTC.")
                                 .textStyle(Tokens.TextScale.base).multilineTextAlignment(.center)
                             Button("See the leaderboard") { router.push(.leaderboard) }.buttonStyle(.primary)
                             Button("Play levels") { router.replaceTop(.levels) }.buttonStyle(.secondary)
@@ -91,7 +91,7 @@ struct PuzzleView: View {
                             ToolButton(systemImage: "lightbulb", label: "Hint", badge: session.hints) { sheet = .hint }
                                 .disabled(!playing)
                         }
-                        Text("Tap to mark a cell. Tap again (or double tap) for a cat. Hold to clear.")
+                        Text("Tap once to rule a spot out. Tap again, or double tap, to place a cat. Hold to clear.")
                             .textStyle(Tokens.TextScale.xs, Tokens.Colors.textMuted)
                             .multilineTextAlignment(.center)
                     }
@@ -152,9 +152,9 @@ struct PuzzleView: View {
         switch kind {
         case .hint:
             let left = session.hints
-            Text(left > 0 ? "Use a hint?" : "No hints left").textStyle(Tokens.TextScale.lg)
-            Text(left > 0 ? "A hint rings the cell you're closest to working out. You have \(left)."
-                          : "Solve the daily puzzle to earn another one.")
+            Text(left > 0 ? "Want a hint?" : "No hints left").textStyle(Tokens.TextScale.lg)
+            Text(left > 0 ? "A hint rings the spot you're closest to working out. You have \(left)."
+                          : "Finish today's board to earn another.")
                 .textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
             Spacer()
             if left > 0 {
@@ -167,12 +167,12 @@ struct PuzzleView: View {
             Button(left > 0 ? "Keep thinking" : "OK") { sheet = nil }.buttonStyle(.secondary)
 
         case .failed:
-            Text("Out of lives").textStyle(Tokens.TextScale.xl)
-            Text(session.kind == .daily ? "The clock keeps running on a retry, so take your time."
-                                         : "Every board has one answer you can reach with logic alone.")
+            Text("That's three slips").textStyle(Tokens.TextScale.xl)
+            Text(session.kind == .daily ? "Same board, fresh lives. The clock keeps running, so there's no rush."
+                                         : "Every board can be solved by logic alone. Have another go.")
                 .textStyle(Tokens.TextScale.base, Tokens.Colors.textMuted)
             Spacer()
-            Button("Try again") {
+            Button("Start fresh") {
                 sheet = nil
                 session.restart()
             }
@@ -185,7 +185,7 @@ struct PuzzleView: View {
 
         case .solved:
             let r = session.result
-            Text("Every cat has a home").textStyle(Tokens.TextScale.xl)
+            Text("Every cat found its spot").textStyle(Tokens.TextScale.xl)
             Text("Time \(Format.time(r?.timeMs ?? session.elapsed())) · \(game.mistakes == 0 ? "no mistakes" : "\(game.mistakes) mistake\(game.mistakes > 1 ? "s" : "")")")
                 .textStyle(Tokens.TextScale.base).monospacedDigit()
             if let best = r?.bestMs {

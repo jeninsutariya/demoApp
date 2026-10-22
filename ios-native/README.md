@@ -1,4 +1,4 @@
-# Cat Logic for iOS (SwiftUI)
+# Napspot for iOS (SwiftUI)
 
 Native iOS 17+ app. The daily leaderboard is Game Center; setup steps are in
 `replica/backend.md`.
@@ -21,7 +21,7 @@ ios-native/
 1. Xcode 16 or newer on a Mac.
 2. `open ios-native/CatLogic.xcodeproj`
 3. Signing & Capabilities: pick your team, and change the bundle id
-   (`com.example.catlogic`) to one you own.
+   (`com.example.napspot`) to one you own.
 4. Run on a simulator or a phone.
 
 After adding or removing Swift files: `brew install xcodegen && cd ios-native && xcodegen generate`.

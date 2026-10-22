@@ -24,7 +24,7 @@ targets:
     info:
       path: CatLogic/Info.plist
       properties:
-        CFBundleDisplayName: Cat Logic
+        CFBundleDisplayName: Napspot
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen:
@@ -43,7 +43,7 @@ targets:
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.catlogic # change before shipping (/replica-brand)
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.napspot # replace com.example with your own reverse domain
         MARKETING_VERSION: 0.1.0
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.0"

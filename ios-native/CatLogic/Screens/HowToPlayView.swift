@@ -68,7 +68,7 @@ struct HowToPlayView: View {
             .indexViewStyle(.page(backgroundDisplayMode: .always))
 
             VStack(spacing: Tokens.space[2]) {
-                Button(page == rules.count - 1 ? "Start playing" : "Next") {
+                Button(page == rules.count - 1 ? "Let's play" : "Next") {
                     if page == rules.count - 1 { finish() } else { withAnimation { page += 1 } }
                 }
                 .buttonStyle(.primary)

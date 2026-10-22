@@ -55,7 +55,7 @@ evidence yet.
    country, most recent first):
 
    ```bash
-   python3 scripts/fetch_app_store_reviews.py              # us, gb, ca, au
+   python3 replica/tools/fetch_app_store_reviews.py              # us, gb, ca, au
    ```
 
 3. **Add at least two more sources by hand.** Copy reviews into

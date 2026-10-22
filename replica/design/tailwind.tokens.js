@@ -8,7 +8,7 @@ module.exports = {
     "border-input": "var(--color-border-input, #8a8178)",
     "text": "var(--color-text, #2a2522)",
     "text-muted": "var(--color-text-muted, #6b625a)",
-    "accent": "var(--color-accent, #3a5bd9)",
+    "accent": "var(--color-accent, #6b3fa0)",
     "on-accent": "var(--color-on-accent, #ffffff)",
     "danger": "var(--color-danger, #b42318)",
     "success": "var(--color-success, #1f7a4d)",

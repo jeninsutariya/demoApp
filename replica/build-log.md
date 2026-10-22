@@ -99,5 +99,5 @@ Expo app was later removed. Backend (Game Center) notes: `replica/backend.md`.
   first build in Xcode to need small fixes.
 - **No screenshots** in `replica/clone-screens/` for iOS: that needs the
   Simulator. Take them at iPhone 15 size once it builds.
-- **No app icon** yet; it waits for `/replica-brand`.
-- Bundle id is `com.example.catlogic` and the signing team is empty.
+- **No app icon** yet: the brief is in `replica/brand.md`.
+- Renamed to Napspot (display name, strings, accent) in `/replica-brand`. Bundle id `com.example.napspot`; the signing team is empty.

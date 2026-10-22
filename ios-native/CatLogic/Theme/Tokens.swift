@@ -9,7 +9,7 @@ enum Tokens {
         static let borderInput = Color(hex: 0x8a8178, alpha: 1.000)
         static let text = Color(hex: 0x2a2522, alpha: 1.000)
         static let textMuted = Color(hex: 0x6b625a, alpha: 1.000)
-        static let accent = Color(hex: 0x3a5bd9, alpha: 1.000)
+        static let accent = Color(hex: 0x6b3fa0, alpha: 1.000)
         static let onAccent = Color(hex: 0xffffff, alpha: 1.000)
         static let danger = Color(hex: 0xb42318, alpha: 1.000)
         static let success = Color(hex: 0x1f7a4d, alpha: 1.000)

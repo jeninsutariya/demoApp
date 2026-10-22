@@ -1,0 +1,7 @@
+{
+  "name": "Napspot",
+  "avoid": ["Meowdoku", "Oakever", "City Park Games"],
+  "domains": ["meowdoku.org", "meowdokugame.io", "cityparkgames.com"],
+  "colors": [],
+  "_notes": "avoid: the original's name and the developers the recon found for it (Oakever Games per the App Store and Google Play listings; City Park Games has a page titled 'Meowdoku!'). domains: sites about the original. colors: empty because the original's brand colours were never seen (its App Store page and screenshots were blocked); add them from real screenshots."
+}

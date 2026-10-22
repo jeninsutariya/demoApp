@@ -4,7 +4,7 @@ import UIKit
 
 enum GameCenter {
     // Must match the recurring leaderboard in App Store Connect (see replica/backend.md)
-    static let dailyLeaderboardID = "catlogic.daily.fastest"
+    static let dailyLeaderboardID = "napspot.daily.fastest"
     static let pageSize = 50
 
     static func isOffline(_ error: Error) -> Bool {
